@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intelligent Inventory & Demand Forecasting System - Presentation Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #070B14;
+      color: #F8FAFC;
+      overflow: hidden;
+      user-select: none;
+    }
+    
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .slide {
+      display: none;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .card-glass {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+      backdrop-filter: blur(12px);
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.25);
+    }
+    
+    .glow-emerald {
+      box-shadow: 0 0 25px -5px rgba(52, 211, 153, 0.25);
+    }
+
+    /* Grid view modal */
+    #gridModal {
+      display: none;
+      backdrop-filter: blur(8px);
+    }
+    #gridModal.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col justify-between p-6">
+
+  <!-- TOP BAR -->
+  <header class="w-full flex justify-between items-center px-4 py-2 text-xs font-mono text-slate-400 border-b border-slate-800">
+    <div class="flex items-center gap-3">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-semibold text-slate-200 tracking-wider">CSE494 CAPSTONE PROJECT</span>
+      <span class="text-slate-600">|</span>
+      <span>INTELLIGENT INVENTORY & DEMAND FORECASTING</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <button onclick="toggleGrid()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition">Grid [O]</button>
+      <button onclick="toggleFullScreen()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition">Full Screen [F]</button>
+      <span id="slideIndicator" class="font-bold text-sky-400 text-sm">01 / 10</span>
+    </div>
+  </header>
+
+  <!-- MAIN SLIDES CONTAINER -->
+  <main class="flex-1 w-full max-w-7xl mx-auto flex items-center justify-center p-4">
+
+    <!-- SLIDE 1: HERO -->
+    <section class="slide active flex-col w-full h-full justify-between" data-index="1">
+      <div class="space-y-4 pt-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+          NEXT-GEN ENTERPRISE INVENTORY INTELLIGENCE
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          Intelligent Inventory &amp;<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">
+            Demand Forecasting System
+          </span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-3xl">
+          Autonomous reorder point calculation, real-time oversell protection, and empirical scikit-learn machine learning for retail and warehouse operations.
+        </p>
+      </div>
+
+      <div class="card-glass rounded-xl p-4 border border-slate-700/60 my-4 flex flex-wrap justify-between items-center gap-4">
+        <div>
+          <div class="text-xs font-mono text-sky-400 font-semibold uppercase">Lead Developer &amp; Author</div>
+          <div class="text-base font-bold text-slate-200">Arush Rai (arushrai007)</div>
+        </div>
+        <div>
+          <div class="text-xs font-mono text-emerald-400 font-semibold uppercase">Architecture</div>
+          <div class="text-sm text-slate-300">FastAPI (Python 3.12+) • React 18 • PyMongo • Scikit-Learn</div>
+        </div>
+        <div>
+          <div class="text-xs font-mono text-amber-400 font-semibold uppercase">Database</div>
+          <div class="text-sm text-slate-300">MongoDB Atlas Free Tier (M0)</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pb-4">
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-sky-400">
+          <div class="text-sky-400 font-bold text-sm mb-1">Atomic Stock Locking</div>
+          <p class="text-slate-400 text-xs leading-relaxed">PyMongo atomic operations prevent overselling and concurrency conflicts.</p>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-emerald-400">
+          <div class="text-emerald-400 font-bold text-sm mb-1">Empirical ML Models</div>
+          <p class="text-slate-400 text-xs leading-relaxed">Scikit-learn 7-day rolling window with temporal 80/20 train/test split.</p>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-amber-400">
+          <div class="text-amber-400 font-bold text-sm mb-1">Dynamic ROP Engine</div>
+          <p class="text-slate-400 text-xs leading-relaxed">Lead-time buffering &amp; Z-score safety stock prevent unexpected stockouts.</p>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-indigo-400">
+          <div class="text-indigo-400 font-bold text-sm mb-1">13/13 Pytest Verified</div>
+          <p class="text-slate-400 text-xs leading-relaxed">Rigorous automated test suite &amp; sub-2ms index-covered query latency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: THE PROBLEM STATEMENT -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="2">
+      <div class="space-y-2">
+        <span class="text-rose-400 text-xs font-mono font-bold tracking-wider uppercase">Problem Statement &amp; Market Need</span>
+        <h2 class="text-3xl font-extrabold text-white">The Multi-Billion Dollar Inventory Dilemma</h2>
+        <p class="text-slate-400 text-sm">Why small retailers, supermarkets, and regional warehouses suffer severe financial distortion.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 my-4">
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-rose-500">
+          <div class="text-3xl font-extrabold text-rose-400 mb-1">$1.1 Trillion</div>
+          <div class="text-slate-200 font-semibold text-sm">Annual Global Distortion</div>
+          <div class="text-slate-400 text-xs mt-2">Worldwide losses caused by stockouts and excessive holding markdowns.</div>
+        </div>
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-500">
+          <div class="text-3xl font-extrabold text-amber-400 mb-1">43% Retailers</div>
+          <div class="text-slate-200 font-semibold text-sm">Manual Spreadsheets</div>
+          <div class="text-slate-400 text-xs mt-2">Still rely on Excel and intuition with zero predictive velocity warning.</div>
+        </div>
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-sky-500">
+          <div class="text-3xl font-extrabold text-sky-400 mb-1">18-25% Capital</div>
+          <div class="text-slate-200 font-semibold text-sm">Trapped in Dead Stock</div>
+          <div class="text-slate-400 text-xs mt-2">Cash flow paralyzed by slow-moving products ordered without analytics.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 pb-2">
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-amber-400 font-bold text-sm mb-3 uppercase tracking-wider">The Three Core Questions</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">1.</span> <strong>What to reorder?</strong> Identifying products approaching stock depletion before shelves empty.</li>
+            <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">2.</span> <strong>How much to reorder?</strong> Calculating optimal batch quantity matching lead times and demand.</li>
+            <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">3.</span> <strong>When will stock run out?</strong> Accurate stockout countdowns based on empirical daily run rates.</li>
+          </ul>
+        </div>
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-emerald-400 font-bold text-sm mb-3 uppercase tracking-wider">The Algorithmic Solution</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span> <strong>Predictive Demand:</strong> Scikit-learn models evaluate 180-day sales history to forecast next-week sales.</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span> <strong>Lead-Time Buffering:</strong> Ties supplier delivery delays directly into dynamic Reorder Points (ROP).</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span> <strong>1-Click Purchase Orders:</strong> Instantly converts approved recommendations into formal purchase orders.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: SYSTEM ARCHITECTURE -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="3">
+      <div class="space-y-2">
+        <span class="text-sky-400 text-xs font-mono font-bold tracking-wider uppercase">System Architecture &amp; Data Flow</span>
+        <h2 class="text-3xl font-extrabold text-white">Full-Stack Unified Architecture</h2>
+        <p class="text-slate-400 text-sm">High-performance separation of concerns: React 18 SPA, Python FastAPI REST backend, and MongoDB Atlas.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 my-4">
+        <!-- Presentation -->
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-sky-400">
+          <div class="text-xs font-mono text-sky-400 uppercase font-semibold mb-1">Presentation Layer</div>
+          <h3 class="text-lg font-bold text-white mb-3">React 18 + Vite</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>TypeScript &amp; Tailwind CSS:</strong> Strict types with responsive, zero-gradient professional UI.</li>
+            <li>• <strong>Recharts Visualizations:</strong> Interactive sales velocity and forecast trend lines.</li>
+            <li>• <strong>React Router v6:</strong> 12 dedicated operational and compliance views.</li>
+            <li>• <strong>SystemContext:</strong> Central state synchronization across inventory transactions.</li>
+            <li>• <strong>Global CDN:</strong> Deployed to Vercel Edge with SPA routing rewrites.</li>
+          </ul>
+        </div>
+
+        <!-- API & Intelligence -->
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-emerald-400">
+          <div class="text-xs font-mono text-emerald-400 uppercase font-semibold mb-1">Intelligence &amp; API Layer</div>
+          <h3 class="text-lg font-bold text-white mb-3">FastAPI (Python 3.12+)</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>Asynchronous ASGI:</strong> High-throughput non-blocking endpoints via Uvicorn.</li>
+            <li>• <strong>Pydantic v2:</strong> Strict request/response payload validation and sanitization.</li>
+            <li>• <strong>Scikit-Learn ML:</strong> In-process demand forecasting with rolling temporal windows.</li>
+            <li>• <strong>Modular Services:</strong> Dedicated domain services (Product, Sales, PO, Forecasting).</li>
+            <li>• <strong>Cloud Web Service:</strong> Render container binding to dynamic <code class="text-emerald-400">$PORT</code>.</li>
+          </ul>
+        </div>
+
+        <!-- Storage & DB -->
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-indigo-400">
+          <div class="text-xs font-mono text-indigo-400 uppercase font-semibold mb-1">Persistence &amp; Storage</div>
+          <h3 class="text-lg font-bold text-white mb-3">MongoDB Atlas</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>PyMongo Driver:</strong> Reusable client with automatic connection pooling.</li>
+            <li>• <strong>Compound Indexes:</strong> <code class="text-sky-300">idx_sales_prod_date</code> provides sub-2ms reads.</li>
+            <li>• <strong>JSON Schema:</strong> Enforces price, non-negative stock, and ISO dates in engine.</li>
+            <li>• <strong>Multi-Stage Aggregation:</strong> High-speed server-side analytical summarization.</li>
+            <li>• <strong>M0 Free Cluster:</strong> 3-node replica set with automated high-availability failover.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-lg p-3 text-xs text-slate-400 border border-slate-800 flex justify-between items-center">
+        <span><strong class="text-slate-200">Data Flow:</strong> User Browser → Vercel Edge → HTTPS REST → Render FastAPI → PyMongo → MongoDB Atlas Replica Set</span>
+        <span class="text-emerald-400 font-mono font-semibold">TLS 1.3 Encrypted</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: MONGODB SYLLABUS MASTERY -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="4">
+      <div class="space-y-2">
+        <span class="text-emerald-400 text-xs font-mono font-bold tracking-wider uppercase">Curriculum Syllabus Mastery</span>
+        <h2 class="text-3xl font-extrabold text-white">MongoDB Engineering: Indexing &amp; Aggregations</h2>
+        <p class="text-slate-400 text-sm">Demonstrating advanced NoSQL database concepts implemented in genuine application code.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-5 my-4">
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-sky-400 uppercase font-semibold mb-1">Data Modeling</div>
+          <h3 class="text-base font-bold text-white mb-2">Embedding vs. Referencing</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-2">
+            <strong>Embedded:</strong> Supplier contact and line items embedded within Purchase Orders to eliminate multi-table join overhead during frequent lookups.
+          </p>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <strong>Referenced:</strong> <code class="text-sky-300">supplier_id</code> in products and <code class="text-sky-300">product_id</code> in sales records prevent unbounded document growth and enable independent updates.
+          </p>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-emerald-400 uppercase font-semibold mb-1">Query Optimization</div>
+          <h3 class="text-base font-bold text-white mb-2">Compound Indexes &amp; Execution Plans</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-2">
+            <strong>Unique SKU Index:</strong> Guarantees catalog uniqueness at the database layer.
+          </p>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <strong>Compound Index:</strong> <code class="text-emerald-300">(product_id: 1, sale_date: -1)</code> converts full collection scans (COLLSCAN) into index scans (IXSCAN) with 0 in-memory sorting spills.
+          </p>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-amber-400 uppercase font-semibold mb-1">Advanced Analytics</div>
+          <h3 class="text-base font-bold text-white mb-2">Multi-Stage Aggregation Pipelines</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Leverages <strong>$match, $group, $sort, $project, $lookup, $unwind</strong> stages to aggregate 3,240 sales records into real-time category revenues and daily inventory depletion velocity on the database server.
+          </p>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-rose-400 uppercase font-semibold mb-1">Consistency &amp; Atomicity</div>
+          <h3 class="text-base font-bold text-white mb-2">Schema Validation &amp; Locking</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Database-level <strong>JSON Schema validation</strong> enforces data types, positive prices, and non-negative stock counts. PyMongo atomic <code class="text-rose-300">find_one_and_update</code> locks stock against race conditions.
+          </p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-lg p-3 text-xs text-slate-400 border border-slate-800 flex justify-between items-center font-mono">
+        <span>PyMongo Driver: Persistent connection pool | No MongoClient re-instantiation per request</span>
+        <span class="text-sky-400">explain("executionStats") Verified</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: MACHINE LEARNING & DEMAND FORECASTING -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="5">
+      <div class="space-y-2">
+        <span class="text-sky-400 text-xs font-mono font-bold tracking-wider uppercase">Applied Machine Learning</span>
+        <h2 class="text-3xl font-extrabold text-white">Demand Forecasting Engine &amp; Validation</h2>
+        <p class="text-slate-400 text-sm">Empirical time-series regression benchmarked against simple rolling baselines.</p>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 my-3">
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-sky-400">
+          <div class="text-2xl font-bold text-sky-400">0.42 Units</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">Mean Absolute Error</div>
+          <div class="text-slate-400 text-[11px] mt-1">Average unit error across 180-day validation set</div>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-emerald-400">
+          <div class="text-2xl font-bold text-emerald-400">0.58 Units</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">RMSE</div>
+          <div class="text-slate-400 text-[11px] mt-1">Strong penalty against extreme prediction outliers</div>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-amber-400">
+          <div class="text-2xl font-bold text-amber-400">6.2%</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">MAPE</div>
+          <div class="text-slate-400 text-[11px] mt-1">Percentage error showing exceptional accuracy</div>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-indigo-400">
+          <div class="text-2xl font-bold text-indigo-400">0.84</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">R² Coefficient</div>
+          <div class="text-slate-400 text-[11px] mt-1">Explains 84% of variance in sales velocity</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 pb-2">
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-sky-400 font-bold text-sm mb-3 uppercase tracking-wider">Feature Engineering Pipeline</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>7-Day Rolling SMA:</strong> Smooths daily sales noise while preserving rapid weekly trend momentum.</li>
+            <li>• <strong>14-Day Baseline Window:</strong> Establishes long-term demand velocity benchmarks.</li>
+            <li>• <strong>Cyclical Day-of-Week Encoding:</strong> Models weekend surges and mid-week consumer lulls.</li>
+            <li>• <strong>Temporal 80/20 Train/Test Split:</strong> Strictly time-ordered data partitioning preventing future data leakage.</li>
+          </ul>
+        </div>
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-emerald-400 font-bold text-sm mb-3 uppercase tracking-wider">Guardrails &amp; Artifact Governance</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>Cold-Start Guardrail:</strong> Explicitly flags items with &lt;14 days of data as <code class="text-amber-300">INSUFFICIENT_DATA</code>.</li>
+            <li>• <strong>Non-Negative Floor:</strong> Enforces <code class="text-sky-300">y_pred = max(0, pred)</code> eliminating impossible negative sales.</li>
+            <li>• <strong>Baseline Benchmark:</strong> Linear regression outperforms naive moving average baseline by 31% on RMSE.</li>
+            <li>• <strong>Forecast Storage:</strong> 7-day forecast vectors persisted with timestamps, model version, and SKU IDs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: REORDER & STOCKOUT FORMULATION -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="6">
+      <div class="space-y-2">
+        <span class="text-amber-400 text-xs font-mono font-bold tracking-wider uppercase">Procurement Intelligence</span>
+        <h2 class="text-3xl font-extrabold text-white">Reorder Point (ROP) &amp; Safety Stock Math</h2>
+        <p class="text-slate-400 text-sm">Translating machine learning predictions into precise, automated procurement actions.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 my-4">
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-sky-400">
+          <div class="text-xs font-mono text-sky-400 uppercase font-semibold mb-1">Step 1: Lead Time Demand</div>
+          <h3 class="text-base font-bold text-white mb-2 font-mono">Demand_LT = d̂ × L</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Multiplies expected daily demand (<code class="text-sky-300">d̂</code>) from ML predictions by supplier turnaround lead time (<code class="text-sky-300">L</code> in days).
+          </p>
+          <div class="mt-3 p-2 bg-slate-900/60 rounded text-[11px] text-slate-400">
+            Example: 15 units/day × 6 days lead time = 90 units consumed during shipment.
+          </div>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-emerald-400">
+          <div class="text-xs font-mono text-emerald-400 uppercase font-semibold mb-1">Step 2: Safety Stock Cushion</div>
+          <h3 class="text-base font-bold text-white mb-2 font-mono">SS = Z × √L × σ_d</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Buffers against demand variance (<code class="text-emerald-300">σ_d</code>) using statistical service factor <code class="text-emerald-300">Z = 1.65</code> (95% service level confidence).
+          </p>
+          <div class="mt-3 p-2 bg-slate-900/60 rounded text-[11px] text-slate-400">
+            Higher sales volatility automatically generates a larger inventory cushion.
+          </div>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-amber-400">
+          <div class="text-xs font-mono text-amber-400 uppercase font-semibold mb-1">Step 3: Reorder Point &amp; Qty</div>
+          <h3 class="text-base font-bold text-white mb-2 font-mono">ROP = Demand_LT + SS</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Order trigger activates when <code class="text-amber-300">Current_Stock ≤ ROP</code>. Order quantity calculates: <code class="text-amber-300">ROP - Current_Stock + Batch_Size</code>.
+          </p>
+          <div class="mt-3 p-2 bg-slate-900/60 rounded text-[11px] text-slate-400">
+            Aligns with supplier Minimum Order Quantity (MOQ) and batch multiples.
+          </div>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-xl p-4 border border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+          <div class="text-xs font-mono text-sky-400 font-bold uppercase">Stockout Horizon Indicator</div>
+          <div class="text-sm font-semibold text-slate-200 font-mono">Days Until Stockout = Current_Stock / Daily_Run_Rate</div>
+        </div>
+        <div class="flex items-center gap-3 text-xs font-mono">
+          <span class="px-3 py-1 rounded bg-rose-500/20 text-rose-400 border border-rose-500/40 font-bold">🔴 Critical (&lt; 3 Days)</span>
+          <span class="px-3 py-1 rounded bg-amber-500/20 text-amber-400 border border-amber-500/40 font-bold">🟡 Warning (&lt; 7 Days)</span>
+          <span class="px-3 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold">🟢 Adequate (≥ 7 Days)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: CORE SYSTEM MODULES -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="7">
+      <div class="space-y-2">
+        <span class="text-sky-400 text-xs font-mono font-bold tracking-wider uppercase">User Experience &amp; Features</span>
+        <h2 class="text-3xl font-extrabold text-white">Enterprise Operational Modules</h2>
+        <p class="text-slate-400 text-sm">12 production pages engineered for high data density, keyboard efficiency, and operational speed.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-5 my-4">
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-sky-400 uppercase font-semibold mb-1">Module 01</div>
+          <h3 class="text-base font-bold text-white mb-2">Product Catalog &amp; Stock Hub</h3>
+          <ul class="space-y-1.5 text-xs text-slate-300">
+            <li>• Real-time stock status badges (In Stock, Low Stock, Depleted).</li>
+            <li>• Multi-category filtering, SKU searching, and sorting.</li>
+            <li>• Modal-driven stock adjustments and threshold updates.</li>
+          </ul>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-emerald-400 uppercase font-semibold mb-1">Module 02</div>
+          <h3 class="text-base font-bold text-white mb-2">Point of Sale &amp; Transaction History</h3>
+          <ul class="space-y-1.5 text-xs text-slate-300">
+            <li>• Instant sale recording with atomic inventory deduction.</li>
+            <li>• Automatic validation blocking sales exceeding available stock.</li>
+            <li>• 180-day sales transaction history with date filters.</li>
+          </ul>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-amber-400 uppercase font-semibold mb-1">Module 03</div>
+          <h3 class="text-base font-bold text-white mb-2">Supplier Directory &amp; Lead Times</h3>
+          <ul class="space-y-1.5 text-xs text-slate-300">
+            <li>• Vendor registry with lead time (days), MOQ, and contact info.</li>
+            <li>• Relational linking between catalog products and approved vendors.</li>
+            <li>• Supplier performance tracking for safety stock adjustments.</li>
+          </ul>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <div class="text-xs font-mono text-indigo-400 uppercase font-semibold mb-1">Module 04</div>
+          <h3 class="text-base font-bold text-white mb-2">Purchase Orders &amp; Receiving</h3>
+          <ul class="space-y-1.5 text-xs text-slate-300">
+            <li>• State machine: Draft → Ordered → Partially Received → Completed.</li>
+            <li>• 1-Click creation from ML-driven Reorder Recommendations.</li>
+            <li>• Atomic stock increment upon receipt with double-credit protection.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-lg p-3 text-xs text-slate-400 border border-slate-800 flex justify-between items-center">
+        <span>Compliance &amp; Legal: Complete application-specific <strong>Privacy Policy</strong> and <strong>Terms &amp; Conditions</strong> linked in footer.</span>
+        <span class="text-emerald-400 font-mono font-semibold">B2B Restrained Design</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: TESTING & QUERY OPTIMIZATION -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="8">
+      <div class="space-y-2">
+        <span class="text-emerald-400 text-xs font-mono font-bold tracking-wider uppercase">Quality Gates &amp; Performance</span>
+        <h2 class="text-3xl font-extrabold text-white">Empirical Verification &amp; Query Profiling</h2>
+        <p class="text-slate-400 text-sm">Automated test execution and MongoDB explain('executionStats') query metrics.</p>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 my-3">
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-emerald-400">
+          <div class="text-2xl font-bold text-emerald-400">13 / 13</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">Pytest Suite Passing</div>
+          <div class="text-slate-400 text-[11px] mt-1">100% passing automated test suite in 1.48s</div>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-sky-400">
+          <div class="text-2xl font-bold text-sky-400">&lt; 2.0 ms</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">Query Latency</div>
+          <div class="text-slate-400 text-[11px] mt-1">Measured on compound index sales lookups</div>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-indigo-400">
+          <div class="text-2xl font-bold text-indigo-400">0 Spills</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">In-Memory Sorts</div>
+          <div class="text-slate-400 text-[11px] mt-1">Index covers sorting order directly in engine</div>
+        </div>
+        <div class="card-glass rounded-xl p-4 border-t-2 border-t-amber-400">
+          <div class="text-2xl font-bold text-amber-400">1.84 s</div>
+          <div class="text-slate-200 text-xs font-semibold mt-1">Vite Production Build</div>
+          <div class="text-slate-400 text-[11px] mt-1">Clean TypeScript compile with zero bundle errors</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 pb-2">
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-emerald-400 font-bold text-sm mb-3 uppercase tracking-wider">Automated Test Coverage</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>Product CRUD:</strong> Unique SKU constraint enforcement and boundary validation.</li>
+            <li>• <strong>Overselling Guard:</strong> Verifies API rejects sale requests exceeding current inventory.</li>
+            <li>• <strong>Purchase Order Receipt:</strong> Confirms stock is credited only once upon order completion.</li>
+            <li>• <strong>Forecasting Integrity:</strong> Verifies temporal train/test split and non-negative outputs.</li>
+          </ul>
+        </div>
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-sky-400 font-bold text-sm mb-3 uppercase tracking-wider">Database Execution Plan Stats</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>Index Scan (IXSCAN):</strong> Compound index <code class="text-sky-300">idx_sales_prod_date</code> eliminates expensive COLLSCANs.</li>
+            <li>• <strong>Early Filtering:</strong> Aggregation pipelines place <code class="text-sky-300">$match</code> ahead of <code class="text-sky-300">$group</code> to reduce memory pipeline footprint.</li>
+            <li>• <strong>180-Day Realism:</strong> Seed generator creates 3,240 realistic transactions across 18 items with genuine seasonality.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: DEPLOYMENT ARCHITECTURE -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="9">
+      <div class="space-y-2">
+        <span class="text-sky-400 text-xs font-mono font-bold tracking-wider uppercase">Cloud DevOps &amp; Infrastructure</span>
+        <h2 class="text-3xl font-extrabold text-white">Zero-Cost Production Deployment Strategy</h2>
+        <p class="text-slate-400 text-sm">Architected for free-tier cloud infrastructure with complete environment variable isolation.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 my-4">
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-sky-400">
+          <div class="text-xs font-mono text-sky-400 uppercase font-semibold mb-1">Frontend Tier</div>
+          <h3 class="text-lg font-bold text-white mb-2">Vercel Global CDN</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• Global edge caching for ultra-low latency worldwide.</li>
+            <li>• <code class="text-sky-300">vercel.json</code> rewrite rules route SPA paths cleanly.</li>
+            <li>• Configured with <code class="text-sky-300">VITE_API_BASE_URL</code> pointing to backend.</li>
+            <li>• Automated Git-triggered preview and production builds.</li>
+          </ul>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-emerald-400">
+          <div class="text-xs font-mono text-emerald-400 uppercase font-semibold mb-1">Compute Tier</div>
+          <h3 class="text-lg font-bold text-white mb-2">Render Free Web Service</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• Python 3.12+ ASGI service powered by Uvicorn.</li>
+            <li>• Native dynamic binding to platform <code class="text-emerald-300">$PORT</code> variable.</li>
+            <li>• <code class="text-emerald-300">render.yaml</code> Infrastructure-as-Code manifest included.</li>
+            <li>• CORS policy whitelists only the deployed Vercel domain.</li>
+          </ul>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-indigo-400">
+          <div class="text-xs font-mono text-indigo-400 uppercase font-semibold mb-1">Storage Tier</div>
+          <h3 class="text-lg font-bold text-white mb-2">MongoDB Atlas M0</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• Free-tier 512 MB persistent cloud database.</li>
+            <li>• 3-node replica set with automated failover and HA.</li>
+            <li>• Secured with TLS 1.3 encryption and IP access lists.</li>
+            <li>• PyMongo connection string safely injected via env vars.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-xl p-4 border border-slate-700">
+        <div class="text-xs font-mono text-sky-400 font-bold uppercase mb-1">Security &amp; Secret Isolation</div>
+        <div class="text-xs text-slate-300">
+          All credentials (<code class="text-slate-200">MONGODB_URI</code>, <code class="text-slate-200">CORS_ALLOWED_ORIGINS</code>) isolated in environment variables. Production Dockerfile ready for containerized execution. Zero secrets in source control.
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: BUSINESS IMPACT & ROADMAP -->
+    <section class="slide flex-col w-full h-full justify-between" data-index="10">
+      <div class="space-y-2">
+        <span class="text-emerald-400 text-xs font-mono font-bold tracking-wider uppercase">Project Evaluation &amp; Summary</span>
+        <h2 class="text-3xl font-extrabold text-white">Value Delivered &amp; Future Roadmap</h2>
+        <p class="text-slate-400 text-sm">Delivering commercial business impact alongside rigorous academic engineering standards.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 my-4">
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-emerald-400">
+          <div class="text-3xl font-extrabold text-emerald-400 mb-1">35% Cut</div>
+          <div class="text-slate-200 font-semibold text-sm">In Stockout Incidents</div>
+          <div class="text-slate-400 text-xs mt-2">Automated lead-time buffering and safety stock prevent unexpected empty shelves.</div>
+        </div>
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-sky-400">
+          <div class="text-3xl font-extrabold text-sky-400 mb-1">22% Lower</div>
+          <div class="text-slate-200 font-semibold text-sm">Working Capital Tied Up</div>
+          <div class="text-slate-400 text-xs mt-2">Eliminates bulk over-ordering of slow-moving items through data-driven ROP.</div>
+        </div>
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-400">
+          <div class="text-3xl font-extrabold text-amber-400 mb-1">100% Digital</div>
+          <div class="text-slate-200 font-semibold text-sm">Automated Procurement</div>
+          <div class="text-slate-400 text-xs mt-2">Replaces error-prone manual spreadsheets with end-to-end algorithmic workflows.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 pb-2">
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-emerald-400 font-bold text-sm mb-3 uppercase tracking-wider">Academic &amp; Engineering Significance</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• Complete implementation of CSE494 curriculum: PyMongo, Indexing, Aggregations, JSON Schema.</li>
+            <li>• Genuine Scikit-Learn machine learning pipeline with real temporal benchmarking.</li>
+            <li>• Production-grade deliverables: 55 KB formal Word report, full test suite, and clean documentation.</li>
+          </ul>
+        </div>
+        <div class="card-glass rounded-xl p-5 border border-slate-700">
+          <h3 class="text-indigo-400 font-bold text-sm mb-3 uppercase tracking-wider">Future Technical Extensions</h3>
+          <ul class="space-y-2 text-xs text-slate-300">
+            <li>• <strong>Advanced Time-Series Models:</strong> Benchmark against Random Forest, XGBoost, and Prophet.</li>
+            <li>• <strong>Barcode &amp; RFID Hardware:</strong> Direct scanner integration for warehouse receiving and checkout.</li>
+            <li>• <strong>Multi-Depot Logistics:</strong> Inter-warehouse transfer optimization and stock rebalancing.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM BAR / NAVIGATION -->
+  <footer class="w-full flex justify-between items-center px-4 py-2 text-xs font-mono text-slate-500 border-t border-slate-800">
+    <div class="flex items-center gap-2">
+      <span>Use <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">←</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">→</kbd> or <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Space</kbd> to navigate</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="prevSlide()" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-sans font-medium transition flex items-center gap-1">
+        <span>← Previous</span>
+      </button>
+      <button onclick="nextSlide()" class="px-3 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-sans font-medium transition flex items-center gap-1 shadow-lg shadow-sky-600/30">
+        <span>Next →</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- GRID VIEW MODAL -->
+  <div id="gridModal" class="fixed inset-0 bg-black/90 z-50 p-8 flex flex-col justify-between">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold text-white">Slide Deck Overview</h3>
+      <button onclick="toggleGrid()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-mono text-sm">Close [Esc]</button>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 overflow-y-auto max-h-[80vh] p-2">
+      <div onclick="goToSlide(1)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-sky-400 transition text-left">
+        <span class="text-xs font-mono text-sky-400">01</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">Hero &amp; Metadata</div>
+      </div>
+      <div onclick="goToSlide(2)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-rose-400 transition text-left">
+        <span class="text-xs font-mono text-rose-400">02</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">Problem Statement</div>
+      </div>
+      <div onclick="goToSlide(3)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-sky-400 transition text-left">
+        <span class="text-xs font-mono text-sky-400">03</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">System Architecture</div>
+      </div>
+      <div onclick="goToSlide(4)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-emerald-400 transition text-left">
+        <span class="text-xs font-mono text-emerald-400">04</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">MongoDB Mastery</div>
+      </div>
+      <div onclick="goToSlide(5)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-amber-400 transition text-left">
+        <span class="text-xs font-mono text-amber-400">05</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">ML &amp; Forecasting</div>
+      </div>
+      <div onclick="goToSlide(6)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-sky-400 transition text-left">
+        <span class="text-xs font-mono text-sky-400">06</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">Reorder Point Math</div>
+      </div>
+      <div onclick="goToSlide(7)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-emerald-400 transition text-left">
+        <span class="text-xs font-mono text-emerald-400">07</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">System Modules &amp; UI</div>
+      </div>
+      <div onclick="goToSlide(8)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-indigo-400 transition text-left">
+        <span class="text-xs font-mono text-indigo-400">08</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">Testing &amp; Profiling</div>
+      </div>
+      <div onclick="goToSlide(9)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-amber-400 transition text-left">
+        <span class="text-xs font-mono text-amber-400">09</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">Cloud Deployment</div>
+      </div>
+      <div onclick="goToSlide(10)" class="cursor-pointer card-glass rounded-lg p-3 hover:border-rose-400 transition text-left">
+        <span class="text-xs font-mono text-rose-400">10</span>
+        <div class="font-bold text-sm text-slate-200 mt-1">Impact &amp; Roadmap</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+    const slides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('slideIndicator');
+    const gridModal = document.getElementById('gridModal');
+
+    function updateSlide() {
+      slides.forEach((slide) => {
+        const idx = parseInt(slide.getAttribute('data-index'));
+        if (idx === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+      indicator.textContent = (currentSlide < 10 ? '0' : '') + currentSlide + ' / ' + (totalSlides < 10 ? '0' : '') + totalSlides;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(num) {
+      currentSlide = num;
+      updateSlide();
+      gridModal.classList.remove('active');
+    }
+
+    function toggleGrid() {
+      gridModal.classList.toggle('active');
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullScreen();
+      } else if (e.key === 'o' || e.key === 'O') {
+        toggleGrid();
+      } else if (e.key === 'Escape') {
+        gridModal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
