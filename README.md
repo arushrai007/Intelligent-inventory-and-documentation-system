@@ -2,6 +2,9 @@
 
 A production-minded, full-stack college project demonstrating modern inventory control, MongoDB aggregation & query optimization, and real machine learning demand forecasting with **FastAPI**, **scikit-learn**, and **React**.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farushrai007%2FIntelligent-inventory-and-documentation-system&root-directory=frontend)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/arushrai007/Intelligent-inventory-and-documentation-system)
+
 ---
 
 ## 1. Product Objective
